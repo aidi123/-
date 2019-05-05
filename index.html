@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0, user-scalable=no">
+  <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *"> -->
+<meta name="format-detection" content="telephone=no">
+<meta name="msapplication-tap-highlight" content="no">
+<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+<!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *;script-src * 'unsafe-inline'"> -->
+<!-- <link rel="stylesheet" type="text/css" href="css/index.css"> -->
+  <title>shitigo</title>
+  <!-- <link rel="stylesheet" href="//at.alicdn.com/t/font_926207_ufa5f54jyx.css"> -->
+  <script src="//unpkg.com/vue-ydui/dist/ydui.flexible.js"></script>
+  <script src="http://api.map.baidu.com/api?v=2.0&ak=z7AnAymCiB8tnH16FfEI7RFb0Qnz2mTp"></script>
+  <!-- <script src="./src/NativeShare-master/NativeShare.js"></script> -->
+  <style>
+    body,
+    html {
+      height: 100%;
+      /* height: auto !important; */
+      background-color:#ff7c12; 
+    }
+  </style>
+
+</head>
+
+<body>
+  <div id="app"></div>
+  <!-- built files will be auto injected -->
+</body>
+<!-- <script type="text/javascript" src="cordova.js"></script> -->
+
+<script>
+  (function (doc, win) {
+    var docEl = doc.documentElement,
+      resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+      recalc = function () {
+        var clientWidth = docEl.clientWidth;
+        if (!clientWidth) return;
+        if (clientWidth >= 750) {
+          clientWidth = 750;
+        }
+        if (clientWidth <= 320) {
+          clientWidth = 320;
+        }
+        docEl.style.fontSize = 100 * (clientWidth / 750) + 'px';//其中“10”根据你设置的html的font-size属性值做适当的变化
+      };
+
+    if (!doc.addEventListener) return;
+    win.addEventListener(resizeEvt, recalc, false);
+    doc.addEventListener('DOMContentLoaded', recalc, false);
+
+     //处理手机物理返回键，返回直接退出问题
+  document.addEventListener('plusready', function() {
+    var webview = plus.webview.currentWebview();
+    plus.key.addEventListener('backbutton', function() {
+      webview.canBack(function(e) {
+        if(e.canBack) {
+        webview.back(); 
+        } else {
+        //webview.close(); //hide,quit
+        //plus.runtime.quit();
+        //首页返回键处理
+        //处理逻辑：1秒内，连续两次按返回键，则退出应用；
+        var first = null;
+        plus.key.addEventListener('backbutton', function() {
+        //首次按键，提示‘再按一次退出应用’
+          if (!first) {
+          first = new Date().getTime();
+          console.log('再按一次退出应用');
+          setTimeout(function() {
+          first = null;
+          }, 1000);
+          } else {
+          if (new Date().getTime() - first < 1500) {
+          plus.runtime.quit();
+          }
+          }
+        }, false);
+        }
+      })
+    });
+  });
+
+  })(document, window);
+  //处理手机物理返回键，返回直接退出问题
+  document.addEventListener('plusready', function() {
+    var webview = plus.webview.currentWebview();
+    plus.key.addEventListener('backbutton', function() {
+      webview.canBack(function(e) {
+        if(e.canBack) {
+        webview.back(); 
+        } else {
+        //webview.close(); //hide,quit
+        //plus.runtime.quit();
+        //首页返回键处理
+        //处理逻辑：1秒内，连续两次按返回键，则退出应用；
+        var first = null;
+        plus.key.addEventListener('backbutton', function() {
+        //首次按键，提示‘再按一次退出应用’
+          if (!first) {
+          first = new Date().getTime();
+          console.log('再按一次退出应用');
+          setTimeout(function() {
+          first = null;
+          }, 1000);
+          } else {
+          if (new Date().getTime() - first < 1500) {
+          plus.runtime.quit();
+          }
+          }
+        }, false);
+        }
+      })
+    });
+  });
+
+</script>
+
+</html>
